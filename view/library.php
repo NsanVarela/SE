@@ -126,7 +126,7 @@
       <div class="card border-success mb-3" style="max-width: 18rem;">
         <div class="card-header bg-transparent border-success">
           <div class="card-pic" style="width: 6rem;">
-            <img class="card-img-top rounded" src="..." alt="Card image cap">
+            <img class="card-img-top rounded" src="ninja.jpg" alt="Card image cap">
           </div>
           <p class="text-right text-uppercase "><small>User 2</small></p><br />
           <p class="text-right"><small>02/02/2018</small></p>

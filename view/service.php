@@ -53,7 +53,7 @@
                 <li class="list-group-item">
                     <div class="row w-20">
                         <div class="col-sm-8 col-md-3 px-0 d-flex flex-row">
-                            <img src="amal.jpg" class="rounded-circle mx-auto d-block img-fluid li-el">
+                            <img src="ninja.jpg" class="rounded-circle mx-auto d-block img-fluid li-el">
                             <label class="p-2 ">Ama Ru</label>
                             <span class="fa fa-phone fa-3x text-success float-right pulse p-2 li-el" title="online now"></span>
                         </div>
