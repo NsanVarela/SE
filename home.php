@@ -5,9 +5,9 @@
         exit();
     }
 
-    require_once('/view/userInSession.php');
+    require_once('view/userInSession.php');
     // Sécuriser l'affichage de texte html.
-    require_once('/control/Securite.class.php');
+    require_once('control/Securite.class.php');
 ?>
 <!DOCTYPE html>
 <html>
