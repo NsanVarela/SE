@@ -30,7 +30,7 @@
         <!-- MENU -->
         <div id="app" class=" bg-dark">
             <nav class="navbar bg-dark navbar-expand-lg navbar-light bg-faded nav bg-company-red">
-                <a class="navbar-brand text-white" href="home.html">[ SpeakEasy ]</a>
+                <a class="navbar-brand text-white" href="../home.php">[ SpeakEasy ]</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,17 +39,17 @@
                     </ul>
                     <ul id="menu" class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="../home.php">Home</a>
+                            <a class="nav-link text-white" href="service.php">Service</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="service.html">Service</a>
+                            <a class="nav-link text-white" href="library.php">Library</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="library.html">Library</a>
+                            <a class="nav-link text-white current" href="update_profil.php"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?php echo " ".Securite::afficherHTML($user->getPseudo());?></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white current" href="user.html"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                        </li>
+                      <li class="nav-item">
+                      <a href="deconnexion.php" class="nav-link text-white">Log out</a>
+                    </li>
                     </ul>
                 </div>
             </nav>
@@ -61,7 +61,7 @@
       		  <div class="container">
               <h3>Bonjour Amal</h3><br>
                 <div id="pic_update">
-                   <img id="pic_user" src="amal copie.jpg" alt=""><br>
+                   <img id="pic_user" src="ninja.jpg" alt=""><br>
                    <div class="custom-file"><br>
                       <label class="custom-file-label" for="customFile">Ajouter votre fichier</label>
                       <input type="file" class="custom-file-input" id="customFile">

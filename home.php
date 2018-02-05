@@ -35,13 +35,10 @@
                 </ul>
                 <ul id="menu" class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white current" href="home.php">Home</a>
+                        <a class="nav-link text-white" href="view/service.php">Service</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="service.php">Service</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="library.php">Library</a>
+                        <a class="nav-link text-white" href="view/library.php">Library</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="view/update_profil.php"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?php echo " ".Securite::afficherHTML($user->getPseudo());?></a>

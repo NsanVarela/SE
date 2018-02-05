@@ -43,7 +43,6 @@
     <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Varela+Round" rel="stylesheet">
 
     <title>Speakeasy</title>
-    <style type="text/css" src="/view/css/styleIndex.css"></style>
 </head>
 <body>
 <br><br><br><br><br>

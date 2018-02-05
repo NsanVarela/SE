@@ -1,3 +1,19 @@
+<?php
+  session_start();
+
+  if(isset($_SESSION['user'])){
+
+    if(isset($_SESSION['erreur'])){
+      echo $_SESSION['erreur'];
+    }
+
+    // Récupérer les informations dans la session de l'utilisateur.
+    require_once(__DIR__.'/../model/Membre.class.php');
+    $user = unserialize($_SESSION['user']);
+
+    require_once(__DIR__.'/../control/Securite.class.php');
+?>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -14,7 +30,7 @@
 
     <div id="app" class=" header position-fixed bg-dark">
         <nav class="navbar bg-dark navbar-expand-lg navbar-light bg-faded nav bg-company-red ">
-            <a class="navbar-brand text-white" href="home.html">[ SpeakEasy ]</a>
+            <a class="navbar-brand text-white" href="../home.php">[ SpeakEasy ]</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,16 +39,16 @@
                 </ul>
                 <ul id="menu" class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="home.html">Home</a>
+                        <a class="nav-link text-white" href="service.php">Service</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="service.html">Service</a>
+                        <a class="nav-link text-white current" href="library.php">Library</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white current" href="library.html">Library</a>
+                        <a class="nav-link text-white" href="update_profil.php"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?php echo " ".Securite::afficherHTML($user->getPseudo()); ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="update_profil.html"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                      <a href="deconnexion.php" class="nav-link text-white">Log out</a>
                     </li>
                 </ul>
             </div>
@@ -348,3 +364,10 @@
       <script type="text/javascript" src="javascript.js"></script>
       </body>
     </html>
+
+<?php
+    } else {
+        // Redirection pour obliger la connexion.
+        header('Location: home.php');
+        exit();
+    }
