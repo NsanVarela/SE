@@ -9,7 +9,7 @@
 			require_once(__DIR__.'/dao/MembreDAO.class.php');
 			$listeMembre = new MembreDAO();
 
-			require_once('/control/Securite.class.php');
+			require_once('control/Securite.class.php');
 			// si une entrée de la base contient le login / pass
 			$user = $listeMembre->authentification($_POST['Email'], Securite::crypter($_POST['Mdp']));
 
