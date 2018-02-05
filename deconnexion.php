@@ -1,17 +1,4 @@
-<html>
-	<head>
-	</head>
-	<body  bgcolor="#333">
-		<style>
-		.row{
 
-		}
-		.titre{
-			font-size: 100px;
-			margin:auto;
-			text-align: center;
-		}
-		</style>
 <?php
 		session_start();
 		if($_SESSION['user']){
@@ -29,5 +16,21 @@
 			exit();
 		}
 ?>
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body  bgcolor="#333">
+		<style>
+		.row{
+
+		}
+		.titre{
+			font-size: 100px;
+			margin:auto;
+			text-align: center;
+		}
+		</style>
+
 	</body>
 </html>
