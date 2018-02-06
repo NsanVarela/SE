@@ -33,13 +33,9 @@
 			$query->bindValue(':description', $nouveauMembre->getDescription(), PDO::PARAM_STR);
 			
 			$res = 0;
-			try {
-				$query->execute();
+			if($query->execute()){
 				$res = 1;
-			} catch (PDOException $ex){				
-				$res = -1;
 			}
-
 			$query->CloseCursor();
 			return $res;
 		}
@@ -110,9 +106,10 @@
 		/*
 		 * Déconnexion d'un membre.
 		 */
-		public function deconnexion($idMembre){
-			$query = $this->db->prepare("UPDATE connexion SET statut_connexion = 'DECONNECTE' WHERE id_user = :id_user");
+		public function modifierStatut($idMembre, $statut){
+			$query = $this->db->prepare("UPDATE connexion SET statut_connexion = :statut WHERE id_user = :id_user");
 			$query->bindValue(':id_user', $idMembre, PDO::PARAM_INT);
+			$query->bindValue(':statut', $statut, PDO::PARAM_STR);
 			$query->execute();
 			$query->CloseCursor();
 		}
@@ -140,8 +137,9 @@
 		/*
 		 * Utiliser lors de la phase de vérification de l'unicité de l'adresse mail avant chaque nouvelle inscription.
 		 */
-		public function rechercherMembreConnecte(){
-			$query = $this->db->prepare('SELECT pseudo FROM user INNER JOIN connexion on user.id_user = connexion.id_user WHERE connexion.statut_connexion LIKE "CONNECTE"');
+		public function rechercherMembreConnecte($id_Membre){
+			$query = $this->db->prepare('SELECT pseudo FROM user INNER JOIN connexion on user.id_user = connexion.id_user WHERE connexion.statut_connexion LIKE "CONNECTE" AND user.id_user <> :id_user');
+			$query->bindValue(':id_user', $id_Membre, PDO::PARAM_INT);
 			$query->execute();
 			$result = $query->fetchAll(PDO::FETCH_COLUMN, 0);
 			$query->CloseCursor();

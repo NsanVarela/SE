@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="output"></div>
+<button onclick="recognition.start()">Start</button>
+<button onclick="recognition.stop()">Stop</button>
+<script type="text/javascript">
+var recognition = new webkitSpeechRecognition();
+recognition.continuous = true;
+
+var output;
+recognition.onresult = function(event) {
+output = event.results[0][0].transcript;
+alert (output);
+};
+</script>
+  </body>
+</html>

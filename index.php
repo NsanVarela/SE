@@ -14,7 +14,8 @@
 			$user = $listeMembre->authentification($_POST['Email'], Securite::crypter($_POST['Mdp']));
 
 			// si on obtient une réponse, alors l'utilisateur est un client2fodis
-			if ($user->getID() > 0) {
+			if($user->getID() > 0) {
+				$listeMembre->modifierStatut($user->getID(), 'CONNECTE');		// Modifier le statut.
 				session_start();
 				$_SESSION['user'] = serialize($user);
 				header('Location: home.php');
@@ -25,7 +26,6 @@
 		} else {
 			$erreur = '<div id="erreur">Veuillez remplir<br> tous les champs!!!</div>';
 		}
-
 	}
 
 	if (isset($erreur)) echo '<br /><br />',$erreur;

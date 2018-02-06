@@ -16,45 +16,17 @@
         <!DOCTYPE html>
         <html>
           <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-            <meta name="viewport" content="initial-scale=1">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<?php
+            require_once('CDN.php');      // Ajout des CDN.
+?>
             <link rel="stylesheet" type="text/css" href="stylesheet.css">
-            <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-            <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-            <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Varela+Round" rel="stylesheet">
-
-            <title>Speakeasy</title>
+            <title>Appel</title>
           </head>
           <body>
             <!-- MENU -->
-            <div id="app" class=" bg-dark position-fixed">
-                <nav class="navbar bg-dark navbar-expand-lg navbar-light bg-faded nav bg-company-red ">
-                    <a class="navbar-brand text-white" href="../home.php">[ SpeakEasy ]</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div id="navbarNavDropdown" class="navbar-collapse collapse">
-                        <ul class="navbar-nav mr-auto">
-                        </ul>
-                        <ul id="menu" class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link text-white current" href="service.php">Service</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="library.php">Library</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="update_profil.php"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?php echo " ".Securite::afficherHTML($user->getPseudo()); ?></a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../deconnexion.php" class="nav-link text-white">Log out</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+<?php
+    require_once('menu.php');
+?> 
 
 
             <!-- contacts card -->
@@ -66,23 +38,28 @@
                   </div>
                     <ul class="list-group pull-down pre-scrollable" id="contact-list">
                         <li class="list-group-item">
-                            <div class="row w-20">
-                                <div class="col-sm-8 col-md-3 px-0 d-flex flex-row">
-                                    <img src="ninja.jpg" class="rounded-circle mx-auto d-block img-fluid li-el">
-                                    <label class="p-2 ">Ama Ru</label>
-                                    <span class="fa fa-phone fa-3x text-success float-right pulse p-2 li-el" title="online now"></span>
-                                </div>
-                            </div>
 <?php
                             // Charger la liste des personnes connectées.
                             require_once(__DIR__.'/../control/serviceForm.php');
-                            $requete = rechercherMembreEnLigne();
-                            foreach($requete as $pseudo => $value) {
+                            $requete = rechercherMembreEnLigne($user->getID());
+                            if($requete){               // Des personnes sont en ligne.
+                                foreach($requete as $pseudo => $value) {
+?>
+                                    <div class="row w-20">
+                                        <div class="col-sm-8 col-md-3 px-0 d-flex flex-row">
+                                            <img src="ninja.jpg" class="rounded-circle mx-auto d-block img-fluid li-el">
+                                            <label class="p-2 "><?php echo $value ?></label>
+                                            <span class="fa fa-phone fa-3x text-success float-right pulse p-2 li-el" title="online now"></span>
+                                        </div>
+                                    </div>
+<?php
+                                }
+                            } else {                    // La liste des personnes connectés est vides.
 ?>
                                 <div class="row w-20">
                                     <div class="col-sm-8 col-md-3 px-0 d-flex flex-row">
                                         <img src="ninja.jpg" class="rounded-circle mx-auto d-block img-fluid li-el">
-                                        <label class="p-2 "><?php echo $value ?></label>
+                                        <label class="p-2 ">Aucun membre en ligne</label>
                                         <span class="fa fa-phone fa-3x text-success float-right pulse p-2 li-el" title="online now"></span>
                                     </div>
                                 </div>
@@ -94,7 +71,43 @@
                 </div>
                 <div class="container_call">
                     <div id="videocall" >
+
                     </div>
+                    <textarea id="textarea" rows=10 cols=80></textarea>
+                                <button id="button" onclick="toggleStartStop()"></button>
+
+                                <script type="text/javascript">
+                                var recognizing;
+                                var recognition = new webkitSpeechRecognition();
+                                recognition.continuous = true;
+                                reset();
+                                recognition.onend = reset();
+
+                                recognition.onresult = function (event) {
+                                  for (var i = event.resultIndex; i < event.results.length; ++i) {
+                                    if (event.results[i].isFinal) {
+                                      textarea.value += event.results[i][0].transcript;
+                                    }
+                                  }
+                                }
+
+                                function reset() {
+                                  recognizing = false;
+                                  button.innerHTML = "Click to Speak";
+                                }
+
+                                function toggleStartStop() {
+                                  if (recognizing) {
+                                    recognition.stop();
+                                    reset();
+                                  } else {
+                                    recognition.start();
+                                    recognizing = true;
+                                    button.innerHTML = "Click to Stop";
+                                  }
+                                }
+                                </script>
+                                
                     <div class="buttons">
                       <button type="button" class="btn btn-success btn-circle btn-lg mobile-menu-button" title="contact" id="contact"><i class="fas fa-user-plus"></i></button>
                       <button type="button" class="btn btn-danger btn-circle btn-lg" title="End-Call" id="endcall"><i class="fas fa-phone"></i></button>
