@@ -70,6 +70,8 @@
 						break;
 					}
 				}
+				
+				$_SESSION['user'] = serialize($nouveauMembre);
 			}
 
 		} else {

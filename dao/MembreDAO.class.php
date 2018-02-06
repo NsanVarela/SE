@@ -33,9 +33,13 @@
 			$query->bindValue(':description', $nouveauMembre->getDescription(), PDO::PARAM_STR);
 			
 			$res = 0;
-			if($query->execute()){
+			try {
+				$query->execute();
 				$res = 1;
+			} catch (PDOException $ex){				
+				$res = -1;
 			}
+
 			$query->CloseCursor();
 			return $res;
 		}

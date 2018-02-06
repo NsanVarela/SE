@@ -48,7 +48,7 @@
                             <a class="nav-link text-white current" href="update_profil.php"><i class="fa fa-user-circle-o" aria-hidden="true"></i><?php echo " ".Securite::afficherHTML($user->getPseudo());?></a>
                         </li>
                       <li class="nav-item">
-                      <a href="deconnexion.php" class="nav-link text-white">Log out</a>
+                      <a href="../deconnexion.php" class="nav-link text-white">Log out</a>
                     </li>
                     </ul>
                 </div>
