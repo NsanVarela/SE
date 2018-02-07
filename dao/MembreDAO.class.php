@@ -101,15 +101,15 @@
 			}
 			$sql->CloseCursor();
 			return $tmp;
-
 		}
 
 		/*
 		 * Déconnexion d'un membre.
 		 */
-		public function deconnexion($idMembre){
-			$query = $this->db->prepare("UPDATE connexion SET statut_connexion = 'DECONNECTE' WHERE id_user = :id_user");
+		public function modifierStatut($idMembre, $statut){
+			$query = $this->db->prepare("UPDATE connexion SET statut_connexion = :statut WHERE id_user = :id_user");
 			$query->bindValue(':id_user', $idMembre, PDO::PARAM_INT);
+			$query->bindValue(':statut', $statut, PDO::PARAM_STR);
 			$query->execute();
 			$query->CloseCursor();
 		}
@@ -126,7 +126,7 @@
 			$resultat = 0;
 			$row = $result->fetch();
 			
-			if($row['total'] > 0){					
+			if($row['total'] > 0){
 				$resultat = 1;
 			}
 			
@@ -135,68 +135,19 @@
 		}
 		
 		/*
-		 * Utiliser pour la phase de réinitialisation du mot de passe.
-		 * Il faut s'assurer qu'un utilisateur n'a pas modifié les informations
-		 * de l'URL qui lui ont été fournies par e-mail.
-		 */
-		/*public function rechercherMembreParIDPseudo($id, $pseudo){
-			
-			$result = $this->db->prepare('SELECT id_user, email, nom, prenom, pseudo, mdp, typeProfil, type, adresse FROM user WHERE id_user = :IdMembre AND pseudo = :pseudo');
-			$result->bindValue(':IdMembre', $id, PDO::PARAM_INT);
-			$result->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
-			$result->execute();
-			
-			$membre = new Membre();
-			
-			if($row = $result->fetch()){
-
-				$membre->setID($row['id_user']);
-				$membre->setNom($row['nom']);
-				$membre->setPrenom($row['prenom']);
-				$membre->setPseudo($row['pseudo']);
-				$membre->setmdp($row['mdp']);
-				$membre->setTypeProfil($row['typeProfil']);
-				$membre->setMail($row['email']);
-				$membre->setAdresse($row['adresse']);
-				$membre->settype($row['type']);	
-			}
-			
-			$result->CloseCursor();
-			return $membre;			
-		}*/
-		
-		/*
-		 * Utiliser lors de la phase de vérification de l'unicité du pseudo avant chaque nouvelle inscription.
-		 */
-		/*public function rechercherPseudo($pseudo){
-			
-			$query = $this->db->prepare('SELECT pseudo FROM user WHERE pseudo LIKE :pseudo');
-			$query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
-			$query->execute();
-			$result = $query->fetch();
-			$query->CloseCursor();
-			
-			if($result){		
-				return true;
-			} else {
-				return false;
-			}			
-		}*/
-		
-		/*
 		 * Utiliser lors de la phase de vérification de l'unicité de l'adresse mail avant chaque nouvelle inscription.
 		 */
-		/*public function rechercherEmail($email){
-			$query = $this->db->prepare('SELECT id_user FROM user WHERE email LIKE :email');
-			$query->bindValue(':email', $email, PDO::PARAM_STR);
+		public function rechercherMembreConnecte($id_Membre){
+			$query = $this->db->prepare('SELECT pseudo FROM user INNER JOIN connexion on user.id_user = connexion.id_user WHERE connexion.statut_connexion LIKE "CONNECTE" AND user.id_user <> :id_user');
+			$query->bindValue(':id_user', $id_Membre, PDO::PARAM_INT);
 			$query->execute();
-			$result = $query->fetch();
+			$result = $query->fetchAll(PDO::FETCH_COLUMN, 0);
 			$query->CloseCursor();
 			
-			if($result){								
-				return $result['id_user'];
+			if($result){
+				return $result;
 			} else {
 				return false;
 			}
-		}*/	
+		}
 	}

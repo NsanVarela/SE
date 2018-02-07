@@ -1,44 +1,36 @@
+<?php
+  session_start();
+
+  if(isset($_SESSION['user'])){
+
+    if(isset($_SESSION['erreur'])){
+      echo $_SESSION['erreur'];
+    }
+
+    // Récupérer les informations dans la session de l'utilisateur.
+    require_once(__DIR__.'/../model/Membre.class.php');
+    $user = unserialize($_SESSION['user']);
+
+    require_once(__DIR__.'/../control/Securite.class.php');
+?>
+
+
+
+
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<?php
+    require_once('CDN.php');      // Ajout des CDN.
+?>
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Varela+Round" rel="stylesheet">
-
-    <title>Speakeasy</title>
+    <title>Library</title>
   </head>
   <body>
 
-    <div id="app" class=" header position-fixed bg-dark">
-        <nav class="navbar bg-dark navbar-expand-lg navbar-light bg-faded nav bg-company-red ">
-            <a class="navbar-brand text-white" href="home.html">[ SpeakEasy ]</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div id="navbarNavDropdown" class="navbar-collapse collapse">
-                <ul class="navbar-nav mr-auto">
-                </ul>
-                <ul id="menu" class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="home.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="service.html">Service</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white current" href="library.html">Library</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="update_profil.html"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-             
+<?php
+    require_once('menu.php');
+?>           
 
 <!-- MENU LATERAL -->
 <div class="col-lg-3">
@@ -126,7 +118,7 @@
       <div class="card border-success mb-3" style="max-width: 18rem;">
         <div class="card-header bg-transparent border-success">
           <div class="card-pic" style="width: 6rem;">
-            <img class="card-img-top rounded" src="ninja.jpg" alt="Card image cap">
+            <img class="card-img-top rounded" src="..." alt="Card image cap">
           </div>
           <p class="text-right text-uppercase "><small>User 2</small></p><br />
           <p class="text-right"><small>02/02/2018</small></p>
@@ -348,3 +340,10 @@
       <script type="text/javascript" src="javascript.js"></script>
       </body>
     </html>
+
+<?php
+    } else {
+        // Redirection pour obliger la connexion.
+        header('Location: home.php');
+        exit();
+    }

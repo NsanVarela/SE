@@ -14,7 +14,8 @@
 			$user = $listeMembre->authentification($_POST['Email'], Securite::crypter($_POST['Mdp']));
 
 			// si on obtient une réponse, alors l'utilisateur est un client2fodis
-			if ($user->getID() > 0) {
+			if($user->getID() > 0) {
+				$listeMembre->modifierStatut($user->getID(), 'CONNECTE');		// Modifier le statut.
 				session_start();
 				$_SESSION['user'] = serialize($user);
 				header('Location: home.php');
@@ -25,7 +26,6 @@
 		} else {
 			$erreur = '<div id="erreur">Veuillez remplir<br> tous les champs!!!</div>';
 		}
-
 	}
 
 	if (isset($erreur)) echo '<br /><br />',$erreur;
@@ -43,7 +43,6 @@
     <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Varela+Round" rel="stylesheet">
 
     <title>Speakeasy</title>
-    <style type="text/css" src="/view/css/styleIndex.css"></style>
 </head>
 <body>
 <br><br><br><br><br>

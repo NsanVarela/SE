@@ -13,55 +13,33 @@
 
     require_once(__DIR__.'/../control/Securite.class.php');
 ?>
-    <!DOCTYPE html>
-    <html>
-    <head>
-    	<meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="update_profil.css">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Varela+Round" rel="stylesheet">
+<!DOCTYPE html>
+<html>
+  <head>
+<?php
+    require_once('CDN.php');      // Ajout des CDN.
+?>
+    <link rel="stylesheet" type="text/css" href="update_profil.css">
+  
 
-        <title>Mise à jour du profil</title>
-    </head>
-    <body>
+    <title>Mise à jour du profil</title>
+  </head>
+  <body>
         <!-- MENU -->
-        <div id="app" class=" bg-dark">
-            <nav class="navbar bg-dark navbar-expand-lg navbar-light bg-faded nav bg-company-red">
-                <a class="navbar-brand text-white" href="home.html">[ SpeakEasy ]</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div id="navbarNavDropdown" class="navbar-collapse collapse">
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
-                    <ul id="menu" class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="../home.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="service.html">Service</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="library.html">Library</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white current" href="user.html"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <!-- CONTENT -->
+<?php
+    require_once('menu.php');
+?> 
+
+
+
+
     <!-- UPDATE PICTURE -->
     <div class="row">
         <div id="pic" class="col-4">
       		  <div class="container">
-              <h3>Bonjour Amal</h3><br>
+              <h3>Bonjour <?php echo $user->getPseudo(); ?></h3><br>
                 <div id="pic_update">
-                   <img id="pic_user" src="amal copie.jpg" alt=""><br>
+                   <img id="pic_user" src="ninja.jpg" alt=""><br>
                    <div class="custom-file"><br>
                       <label class="custom-file-label" for="customFile">Ajouter votre fichier</label>
                       <input type="file" class="custom-file-input" id="customFile">
